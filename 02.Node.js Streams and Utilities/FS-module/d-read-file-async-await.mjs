@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 
 //Asynchronous file reading with async/await
-
 //Top level await with import fs (doesn't work with require)
 
 try {
