@@ -1,54 +1,45 @@
 import http from "http";
+import fs from "fs/promises";
+import { v4 as uuid } from "uuid";
 
 import siteCss from "./content/styles/site.css.js";
 import homePage from "./views/home/index.html.js";
 import addBreedPage from "./views/addBreed.html.js";
 import addCatPage from "./views/addCat.html.js";
 
-const catsData = [
-  {
-    src: "https://cdn.pixabay.com/photo/2015/06/19/14/20/cat-814952_1280.jpg",
-    name: "Pretty Kitty",
-    alt: "Striped cat",
-    breed: "Bombay Cat",
-    description:
-      "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2018/08/08/05/12/cat-3591348_1280.jpg",
-    name: "Pretty Kitty",
-    alt: "Striped cat",
-    breed: "Bombay Cat",
-    description:
-      "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg",
-    name: "Pretty Kitty",
-    alt: "White cat",
-    breed: "Bombay Cat",
-    description:
-      "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg",
-    name: "Pretty Kitty",
-    alt: "Striped kitty",
-    breed: "Bombay Cat",
-    description:
-      "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-  },
-  {
-    src: "https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg",
-    name: "Pretty Kitty",
-    alt: "Orange cat",
-    breed: "Bombay Cat",
-    description:
-      "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-  },
-];
+let catsData = [];
+initCatsData();
+
+async function initCatsData() {
+  const catsJson = await fs.readFile("./cats.json", { encoding: "utf-8" });
+  catsData = JSON.parse(catsJson);
+}
+
+async function saveCatsData() {
+  const catsJson = JSON.stringify(catsData, null, 2);
+  await fs.writeFile("./cats.json", catsJson, { encoding: "utf-8" });
+}
 
 const server = http.createServer((req, res) => {
+  if (req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+      req.on("end", () => {
+        const newCat = Object.fromEntries(new URLSearchParams(body));
+        newCat.id = uuid();
+        catsData.push(newCat);
+        saveCatsData();
+
+        res.writeHead(302, {
+          location: "/",
+        });
+        res.end();
+      });
+    });
+    return;
+  }
+
   if (req.url == "/styles/site.css") {
     res.writeHead(200, {
       "content-type": "text/css",
