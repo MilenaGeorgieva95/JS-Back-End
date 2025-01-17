@@ -1,0 +1,22 @@
+<h1>Home Page</h1>
+
+//this can be skipped
+{{#each cats}}
+  <article>
+    <h2>{{this.name}}</h2>
+
+    {{#if isStar}}
+      <span>Superstar</span>
+    {{/if}}
+
+    <p>{{breed}}</p>
+    <img src="{{src}}" alt="{{cat.alt}}" />
+    <p>{{description}}</p>
+  </article>
+
+{{else}}
+  <div>(empty)</div>
+
+{{/each}}
+
+{{>lorem}}
