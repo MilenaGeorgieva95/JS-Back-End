@@ -1,5 +1,6 @@
 import express from "express";
 import handlebars from "express-handlebars";
+import homeController from "./controllers/homeController.js";
 
 const app = express();
 
@@ -9,24 +10,6 @@ app.set("views", "src/views");
 
 app.use("/static", express.static("src/public"));
 
-app.get("/", (req, res) => {
-  res.render("home");
-});
-
-app.get("/create", (req, res) => {
-  res.render("create");
-});
-
-app.get("/search", (req, res) => {
-  res.render("search");
-});
-
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("*", (req, res) => {
-  res.render("404");
-});
+app.use(homeController);
 
 app.listen(3000, () => console.log("Listening on http://localhost:3000"));
