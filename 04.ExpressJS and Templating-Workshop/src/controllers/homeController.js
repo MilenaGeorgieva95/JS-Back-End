@@ -1,9 +1,10 @@
 import express from "express";
+import movies from "../../movies.js";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", { movies });
 });
 
 router.get("/create", (req, res) => {
@@ -18,8 +19,8 @@ router.get("/about", (req, res) => {
   res.render("about");
 });
 
-router.get("*", (req, res) => {
-  res.render("404");
+router.get("/details/:movieId", (req, res) => {
+  res.render("details");
 });
 
 export default router;
