@@ -13,6 +13,7 @@ movieController.get("/search", (req, res) => {
 
 movieController.get("/:movieId/details", (req, res) => {
   const movie = movieServices.findMovieById(req.params.movieId);
+  movie.stars = movieServices.getStars(movie.rating);
   res.render("details", movie);
 });
 
