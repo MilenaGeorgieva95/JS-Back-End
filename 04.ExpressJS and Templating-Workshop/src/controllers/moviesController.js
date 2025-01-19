@@ -13,7 +13,15 @@ movieController.post("/create", (req, res) => {
 });
 
 movieController.get("/search", (req, res) => {
-  res.render("search");
+  const movies = movieServices.getAllMovies();
+  res.render("search", {movies});
+});
+
+movieController.post("/search", (req, res) => {
+  const searchParams=req.body;
+  const movies=movieServices.findMovieByParams(searchParams);
+  console.log(movies)
+  res.render("search", {movies});
 });
 
 movieController.get("/:movieId/details", (req, res) => {

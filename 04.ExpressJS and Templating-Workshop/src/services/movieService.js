@@ -1,6 +1,10 @@
 import movies from "../../movies.js";
 import { v4 as uuid } from 'uuid';
 
+function getAllMovies(){
+  return movies;
+}
+
 function findMovieById(id) {
   return movies.find((movie) => movie.id === id);
 }
@@ -16,7 +20,7 @@ function getStars(rating) {
 function checkMovieData(data){
     const {title:name, category, genre, director, year, imageUrl, rating, description} = data;
     //TODO: input data checks
-    const movie={name, category, genre, director, year, imageUrl, rating,description}
+    const movie={name, category, genre, director, year, imageUrl, rating, description}
     movie.id = uuid();
     return movie;
 }
@@ -27,15 +31,20 @@ movies.push(movie);
 return movie.id;
 }
 
-function getAllMovies(){
-    return movies;
+function findMovieByParams(movieParams){
+const matchingMovies=[];
+movies.forEach(el=>{
+  if((el.name==movieParams.name||movieParams.name=='')&&(el.genre==movieParams.genre||movieParams.genre=='')&&(el.year==movieParams.year||movieParams.year==''))
+    {matchingMovies.push(el)}});
+return matchingMovies;
 }
 
 const movieServices = {
     getAllMovies, 
     findMovieById, 
     getStars,
-    createMovie
+    createMovie,
+    findMovieByParams
  };
 
 export default movieServices;
