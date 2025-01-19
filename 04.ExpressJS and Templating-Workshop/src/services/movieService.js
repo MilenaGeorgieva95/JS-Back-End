@@ -7,7 +7,7 @@ function findMovieById(id) {
 
 function getStars(rating) {
   let stars = [];
-  for (let i = 0; i < Math.round(rating); i++) {
+  for (let i = 0; i < Math.round(Number(rating)); i++) {
     stars.push(1);
   }
   return stars;
@@ -27,7 +27,12 @@ movies.push(movie);
 return movie.id;
 }
 
-const movieServices = { 
+function getAllMovies(){
+    return movies;
+}
+
+const movieServices = {
+    getAllMovies, 
     findMovieById, 
     getStars,
     createMovie
