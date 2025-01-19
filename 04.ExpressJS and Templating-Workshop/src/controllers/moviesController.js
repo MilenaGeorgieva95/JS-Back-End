@@ -7,6 +7,11 @@ movieController.get("/create", (req, res) => {
   res.render("create");
 });
 
+movieController.post("/create", (req, res) => {
+  const newMovieId=movieServices.createMovie(req.body);
+  res.redirect(`/movies/${newMovieId}/details`);
+});
+
 movieController.get("/search", (req, res) => {
   res.render("search");
 });
