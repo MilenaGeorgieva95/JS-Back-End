@@ -1,7 +1,7 @@
 export default [
   {
     name: "Jungle Cruise",
-    genre: "Adventure",
+    genre: "adventure",
     director: "Jaume Collet-Serra",
     year: 2021,
     rating: 4.1,
@@ -13,7 +13,7 @@ export default [
   },
   {
     name: "The Little Mermaid",
-    genre: "Fantasy",
+    genre: "fantasy",
     director: "Rob Marshal",
     year: 2023,
     rating: 3.3,
@@ -25,7 +25,7 @@ export default [
   },
   {
     name: "Home Alone",
-    genre: "Comedy",
+    genre: "comedy",
     director: "Chris Columbus",
     year: 1990,
     rating: 4.8,
