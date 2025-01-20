@@ -16,7 +16,7 @@ movieController.get("/search", (req, res) => {
   const filter = req.query;
 
   const movies = movieServices.getAllMovies(filter);
-  res.render("search", { movies });
+  res.render("search", { movies, filter });
 });
 
 // movieController.post("/search", (req, res) => {
