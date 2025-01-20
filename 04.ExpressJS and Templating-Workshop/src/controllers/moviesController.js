@@ -8,21 +8,22 @@ movieController.get("/create", (req, res) => {
 });
 
 movieController.post("/create", (req, res) => {
-  const newMovieId=movieServices.createMovie(req.body);
+  const newMovieId = movieServices.createMovie(req.body);
   res.redirect(`/movies/${newMovieId}/details`);
 });
 
 movieController.get("/search", (req, res) => {
-  const movies = movieServices.getAllMovies();
-  res.render("search", {movies});
+  const filter = req.query;
+
+  const movies = movieServices.getAllMovies(filter);
+  res.render("search", { movies });
 });
 
-movieController.post("/search", (req, res) => {
-  const searchParams=req.body;
-  const movies=movieServices.findMovieByParams(searchParams);
-  console.log(movies)
-  res.render("search", {movies});
-});
+// movieController.post("/search", (req, res) => {
+//   const searchParams=req.body;
+//   const movies=movieServices.findMovieByParams(searchParams);
+//   res.render("search", {movies});
+// });
 
 movieController.get("/:movieId/details", (req, res) => {
   const movie = movieServices.findMovieById(req.params.movieId);
