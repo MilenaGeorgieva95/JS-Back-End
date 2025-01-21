@@ -8,3 +8,4 @@ try {
     console.log('Failed to connect DB ...');
     console.log(err);
 }
+
