@@ -7,15 +7,17 @@ movieController.get("/create", (req, res) => {
   res.render("create");
 });
 
-movieController.post("/create", (req, res) => {
-  const newMovieId = movieServices.createMovie(req.body);
-  res.redirect(`/movies/${newMovieId}/details`);
+movieController.post("/create", async (req, res) => {
+  const movieData=req.body;
+  movieData.alt=movieData.title;
+  const newMovie= await movieServices.createMovie(movieData); 
+  res.redirect(`/movies/${newMovie._id}/details`);
 });
 
-movieController.get("/search", (req, res) => {
+movieController.get("/search", async (req, res) => {
   const filter = req.query;
 
-  const movies = movieServices.getAllMovies(filter);
+  const movies = await movieServices.getAllMovies(filter).lean();
   res.render("search", { movies, filter });
 });
 
@@ -28,7 +30,6 @@ movieController.get("/search", (req, res) => {
 movieController.get("/:movieId/details", async (req, res) => {
   const [movie] = await movieServices.findMovieById(req.params.movieId).lean();
   movie.stars = movieServices.getStars(movie.rating);
-  console.log(movie)
   res.render("details", movie);
 });
 
