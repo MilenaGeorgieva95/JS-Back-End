@@ -7,7 +7,6 @@ router.get("/", async (req, res) => {
   //lean has to be called before await
   const movies = await movieServices.getAllMovies().lean();
 
-  //conver db objects to js objects
   // const moviesObjs = movies.map((m) => m.toObject());
   // res.render("home", { movies: moviesObjs });
 

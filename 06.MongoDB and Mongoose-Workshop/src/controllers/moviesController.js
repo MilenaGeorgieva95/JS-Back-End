@@ -25,9 +25,10 @@ movieController.get("/search", (req, res) => {
 //   res.render("search", {movies});
 // });
 
-movieController.get("/:movieId/details", (req, res) => {
-  const movie = movieServices.findMovieById(req.params.movieId);
+movieController.get("/:movieId/details", async (req, res) => {
+  const [movie] = await movieServices.findMovieById(req.params.movieId).lean();
   movie.stars = movieServices.getStars(movie.rating);
+  console.log(movie)
   res.render("details", movie);
 });
 

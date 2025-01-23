@@ -8,7 +8,7 @@ function getAllMovies(filter) {
 }
 
 function findMovieById(id) {
-  return movies.find((movie) => movie.id === id);
+  return Movie.find({_id: id});
 }
 
 function getStars(rating) {
