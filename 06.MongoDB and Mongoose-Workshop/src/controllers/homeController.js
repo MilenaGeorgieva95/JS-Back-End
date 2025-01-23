@@ -3,8 +3,14 @@ import movieServices from "../services/movieService.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  const movies = movieServices.getAllMovies();
+router.get("/", async (req, res) => {
+  //lean has to be called before await
+  const movies = await movieServices.getAllMovies().lean();
+
+  //conver db objects to js objects
+  // const moviesObjs = movies.map((m) => m.toObject());
+  // res.render("home", { movies: moviesObjs });
+
   res.render("home", { movies });
 });
 

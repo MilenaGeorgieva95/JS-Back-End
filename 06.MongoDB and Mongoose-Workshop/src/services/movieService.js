@@ -1,20 +1,9 @@
 import movies from "../../movies.js";
 import { v4 as uuid } from "uuid";
+import Movie from "../models/Movie.js";
 
 function getAllMovies(filter) {
-  if (filter && (filter.name || filter.genre || filter.year)) {
-    const matchingMovies = movies.filter((el) => {
-      if (
-        (el.name.toLowerCase().includes(filter.name.toLowerCase()) ||
-          filter.name == "") &&
-        (el.genre == filter.genre || filter.genre == "") &&
-        (el.year == filter.year || filter.year == "")
-      ) {
-        return el;
-      }
-    });
-    return matchingMovies;
-  }
+  const movies = Movie.find({});
   return movies;
 }
 
