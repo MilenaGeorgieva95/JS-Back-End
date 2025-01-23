@@ -2,20 +2,18 @@ import express from "express";
 import handlebars from "express-handlebars";
 import routes from "./routes.js";
 import showRatingHelper from "./helpers/rating-helper.js";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const app = express();
 
 //db
 try {
-  const uri = 'mongodb://localhost:27017/magic-movies'
+  const uri = "mongodb://localhost:27017/magic-movies";
   await mongoose.connect(uri);
-  console.log('DB Connected Successfully!');
-  
+  console.log("DB Connected Successfully!");
 } catch (err) {
-  console.log('Cannot connect to DB');
+  console.log("Cannot connect to DB");
   console.log(err.message);
-  
 }
 
 //handlebars
