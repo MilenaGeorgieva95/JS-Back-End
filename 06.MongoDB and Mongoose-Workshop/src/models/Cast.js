@@ -5,11 +5,11 @@ const castSchema = new Schema({
     type: String,
     required: true,
   },
-  age: {
+  birthYear: {
     type: Number,
     required: true,
-    max: 120,
-    min: 0,
+    max: 2025,
+    min: 1700,
   },
   birthplace: {
     type: String,

@@ -4,7 +4,7 @@ import movieServices from "../services/movieService.js";
 const movieController = Router();
 
 movieController.get("/create", (req, res) => {
-  res.render("create");
+  res.render("movie/create");
 });
 
 movieController.post("/create", async (req, res) => {
@@ -18,7 +18,7 @@ movieController.get("/search", async (req, res) => {
   const filter = req.query;
 
   const movies = await movieServices.getAllMovies(filter).lean();
-  res.render("search", { movies, filter });
+  res.render("movie/search", { movies, filter });
 });
 
 // movieController.post("/search", (req, res) => {
@@ -30,7 +30,7 @@ movieController.get("/search", async (req, res) => {
 movieController.get("/:movieId/details", async (req, res) => {
   const [movie] = await movieServices.findMovieById(req.params.movieId).lean();
   movie.stars = movieServices.getStars(movie.rating);
-  res.render("details", movie);
+  res.render("movie/details", movie);
 });
 
 export default movieController;

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const movieSchema = new Schema({
   title: String,
@@ -10,9 +10,16 @@ const movieSchema = new Schema({
   rating: Number,
   description: String,
   alt: String,
+  //foreign key setup
+  casts: [
+    {
+      type: Types.ObjectId,
+      ref: "Cast",
+    },
+  ],
 });
 
-//'Movie' name in the DB
-const Movie = model('Movie', movieSchema);
+//'Movies' name in the DB
+const Movie = model("Movie", movieSchema);
 
 export default Movie;
