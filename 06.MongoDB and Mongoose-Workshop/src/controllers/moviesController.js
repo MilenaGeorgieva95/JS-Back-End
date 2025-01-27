@@ -33,7 +33,7 @@ movieController.get("/:movieId/details", async (req, res) => {
   res.render("movie/details", movie);
 });
 
-movieController.get("/attach-cast", (req, res) => {
+movieController.get("/:movieId/attach-cast", (req, res) => {
   res.render("cast/attach");
 });
 
