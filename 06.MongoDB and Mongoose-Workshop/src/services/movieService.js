@@ -35,11 +35,18 @@ function createMovie(movieData) {
   return movie;
 }
 
+async function attachCast(movieId, castId){
+const movie= await findMovieById(movieId);
+movie.casts.push(castId);
+return await movie.save();
+}
+
 const movieServices = {
   getAllMovies,
   findMovieById,
   getStars,
   createMovie,
+  attachCast,
 };
 
 export default movieServices;

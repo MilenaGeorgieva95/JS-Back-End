@@ -4,7 +4,7 @@
                 <div class="attach-form">
                     <h2>{{movie.title}}</h2>
                     <img class="movie" src="{{movie.imageURL}}">
-                    <form action="" method="">
+                    <form action="/movies/{{movie._id}}/attach-cast" method="POST">
                         <label for="cast">Cast</label>
                         <select id="cast" name="cast">
 
