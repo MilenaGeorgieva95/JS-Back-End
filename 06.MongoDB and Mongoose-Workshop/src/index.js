@@ -11,6 +11,8 @@ const app = express();
 try {
   // const uri = "mongodb://localhost:27017/magic-movies";
   // await mongoose.connect(uri);
+
+  //process.env.variableName
   await mongoose.connect(process.env.DATABASE_URI);
   console.log("DB Connected Successfully!");
 } catch (err) {
