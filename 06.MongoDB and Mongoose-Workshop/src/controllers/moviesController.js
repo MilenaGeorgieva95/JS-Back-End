@@ -28,13 +28,16 @@ movieController.get("/search", async (req, res) => {
 // });
 
 movieController.get("/:movieId/details", async (req, res) => {
-  const [movie] = await movieServices.findMovieById(req.params.movieId).lean();
+  const movie = await movieServices.findMovieById(req.params.movieId).lean();
   movie.stars = movieServices.getStars(movie.rating);
   res.render("movie/details", movie);
 });
 
-movieController.get("/:movieId/attach-cast", (req, res) => {
-  res.render("cast/attach");
+movieController.get("/:movieId/attach-cast", async (req, res) => {
+  const movieId=req.params.movieId;
+  const movie= await movieServices.findMovieById(movieId).lean();
+  console.log(movie)
+  res.render("cast/attach", {movie});
 });
 
 
