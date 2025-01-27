@@ -29,16 +29,17 @@ movieController.get("/search", async (req, res) => {
 // });
 
 movieController.get("/:movieId/details", async (req, res) => {
-  const movie = await movieServices.findMovieById(req.params.movieId).lean();
+  const movie = await movieServices
+    .findMovieByIdWithCast(req.params.movieId)
+    .lean();
   movie.stars = movieServices.getStars(movie.rating);
-  const casts=movie.casts
-  res.render("movie/details", {movie, casts});
+  res.render("movie/details", { movie });
 });
 
 movieController.get("/:movieId/attach-cast", async (req, res) => {
   const movieId = req.params.movieId;
   const movie = await movieServices.findMovieById(movieId).lean();
-  const casts = await castService.getAll().lean();
+  const casts = await castService.getAll(movie.casts).lean();
   res.render("cast/attach", { movie, casts });
 });
 

@@ -15,6 +15,10 @@ function getAllMovies(filter = {}) {
 }
 
 function findMovieById(id) {
+  return Movie.findOne({ _id: id })
+}
+
+function findMovieByIdWithCast(id) {
   return Movie.findOne({ _id: id }).populate('casts');
 }
 
@@ -44,6 +48,7 @@ return await movie.save();
 const movieServices = {
   getAllMovies,
   findMovieById,
+  findMovieByIdWithCast,
   getStars,
   createMovie,
   attachCast,

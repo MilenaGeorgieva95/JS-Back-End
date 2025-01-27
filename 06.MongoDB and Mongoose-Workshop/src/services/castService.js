@@ -5,8 +5,8 @@ function create(castData) {
   return newMovie;
 }
 
-function getAll(){
-  return Cast.find({});
+function getAll(filter=[]){
+  return Cast.find({_id: {$nin: filter}});
 }
 
 const castService = {
