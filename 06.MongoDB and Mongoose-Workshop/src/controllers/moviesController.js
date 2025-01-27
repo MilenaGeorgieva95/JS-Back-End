@@ -9,9 +9,9 @@ movieController.get("/create", (req, res) => {
 });
 
 movieController.post("/create", async (req, res) => {
-  const movieData=req.body;
-  movieData.alt=movieData.title;
-  const newMovie= await movieServices.createMovie(movieData); 
+  const movieData = req.body;
+  movieData.alt = movieData.title;
+  const newMovie = await movieServices.createMovie(movieData);
   res.redirect(`/movies/${newMovie._id}/details`);
 });
 
@@ -31,24 +31,22 @@ movieController.get("/search", async (req, res) => {
 movieController.get("/:movieId/details", async (req, res) => {
   const movie = await movieServices.findMovieById(req.params.movieId).lean();
   movie.stars = movieServices.getStars(movie.rating);
-  res.render("movie/details", movie);
+  const casts=movie.casts
+  res.render("movie/details", {movie, casts});
 });
 
 movieController.get("/:movieId/attach-cast", async (req, res) => {
-  const movieId=req.params.movieId;
-  const movie= await movieServices.findMovieById(movieId).lean();
-const casts= await castService.getAll().lean();
-  res.render("cast/attach", {movie, casts});
+  const movieId = req.params.movieId;
+  const movie = await movieServices.findMovieById(movieId).lean();
+  const casts = await castService.getAll().lean();
+  res.render("cast/attach", { movie, casts });
 });
 
 movieController.post("/:movieId/attach-cast", async (req, res) => {
-  const movieId=req.params.movieId;
-  const movie= await movieServices.findMovieById(movieId)
-const castId=req.body.cast
-console.log(castId)
-const attachedToMovie=await movieServices.attachCast(movieId, castId);
+  const movieId = req.params.movieId;
+  const castId = req.body.cast;
+  const attachedToMovie = await movieServices.attachCast(movieId, castId);
   res.redirect(`/movies/${movieId}/details`);
 });
-
 
 export default movieController;

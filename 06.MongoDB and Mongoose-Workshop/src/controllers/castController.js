@@ -11,9 +11,7 @@ castController.post("/create", async (req, res) => {
 const castData=req.body;
 const newCast= await castService.create(castData);
 console.log(newCast);
-
-
-  res.render("cast/create");
+res.render("cast/create");
 });
 
 
