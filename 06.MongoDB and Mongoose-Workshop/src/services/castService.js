@@ -5,8 +5,13 @@ function create(castData) {
   return newMovie;
 }
 
+function getAll(){
+  return Cast.find({});
+}
+
 const castService = {
   create,
+  getAll,
 };
 
 export default castService;
