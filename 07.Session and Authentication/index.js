@@ -1,6 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
+import bcrypt from "bcrypt";
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.get("/set-cookie-manually", (req, res) => {
 
 app.get("/get-cookie-manually", (req, res) => {
   const cookie = req.header("Cookie");
-  console.log(cookie);
+  // console.log(cookie);
   res.send("Cookie taken");
 });
 
@@ -43,7 +44,7 @@ app.get("/set-cookie", (req, res) => {
 
 app.get("/get-cookie", (req, res) => {
   const cookie = req.cookies["username"];
-  console.log(cookie);
+  // console.log(cookie);
   res.end();
 });
 
@@ -56,11 +57,26 @@ app.get("/set-session-data/:name", (req, res) => {
 });
 
 app.get("/get-session-data", (req, res) => {
-  console.log(req.session);
-  console.log(req.session.username);
+  // console.log(req.session);
   res.send(req.session.username);
+});
 
-  res.end();
+//bcrypt hashing
+app.get("/get-hash/:message", async (req, res) => {
+  const message = req.params.message;
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(message, salt);
+  console.log(salt);
+
+  res.send(hash);
+});
+
+app.get("/check-hash/:message", async (req, res) => {
+  const message = req.params.message;
+  const savedHash =
+    "$2b$10$JXGil1pvWLDimITse59The0zT8M3rNZsSywvfnZRYhUN/l/h2ExpK";
+  const isValid = await bcrypt.compare(message, savedHash);
+  res.send(isValid);
 });
 
 app.listen(3000, () =>
