@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
@@ -78,6 +79,30 @@ app.get("/check-hash/:message", async (req, res) => {
   const isValid = await bcrypt.compare(message, savedHash);
   res.send(isValid);
 });
+
+//JWT: headers, payload, signiture. jwt.sign and jwt.verify
+const secret= 'SomeSecret'
+
+app.get("/generate-jwt/:message", (req, res) => {
+  const message = req.params.message;
+
+  const payload = {
+    username: 'Ted',
+    age: 20,
+    message,
+  }
+
+  const token=jwt.sign(payload, secret, {expiresIn: '2h'});
+  res.send(token)
+});
+
+app.get("/verify-jwt/:token", (req, res) => {
+const token=req.params.token;
+
+const decodedToken=jwt.verify(token, secret);
+res.send(decodedToken);
+})
+
 
 app.listen(3000, () =>
   console.log("Server listening on http://localhost:3000")
