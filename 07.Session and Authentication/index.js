@@ -2,7 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const app = express();
 
@@ -15,6 +15,7 @@ app.use(
     cookie: { secure: false }, //true for HTTPS
   })
 );
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("It works");
@@ -81,28 +82,108 @@ app.get("/check-hash/:message", async (req, res) => {
 });
 
 //JWT: headers, payload, signiture. jwt.sign and jwt.verify
-const secret= 'SomeSecret'
+const secret = "SomeSecret";
 
 app.get("/generate-jwt/:message", (req, res) => {
   const message = req.params.message;
 
   const payload = {
-    username: 'Ted',
+    username: "Ted",
     age: 20,
     message,
-  }
+  };
 
-  const token=jwt.sign(payload, secret, {expiresIn: '2h'});
-  res.send(token)
+  const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+  res.send(token);
 });
 
 app.get("/verify-jwt/:token", (req, res) => {
-const token=req.params.token;
+  const token = req.params.token;
 
-const decodedToken=jwt.verify(token, secret);
-res.send(decodedToken);
-})
+  const decodedToken = jwt.verify(token, secret);
+  res.send(decodedToken);
+});
 
+//*Basic login demo
+app.get("/register", (req, res) => {
+  res.send(`
+    <form method="POST">
+      <div>
+        <label for="username">Username: </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username..."
+        />
+      </div>
+      <div>
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+        />
+      </div>
+
+      <div>
+        <button>Submit</button>
+      </div>
+    </form>`);
+});
+
+const users = [];
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+  //*hash password
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+  //*save user data //TODO: check if user exists
+  users.push({ username, password: hash });
+  //*redirect to login
+  res.redirect("/login");
+});
+
+app.get("/login", (req, res) => {
+  res.send(`
+    <form method="POST">
+      <div>
+        <label for="username">Username: </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username..."
+        />
+      </div>
+      <div>
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+        />
+      </div>
+
+      <div>
+        <button>Login</button>
+      </div>
+    </form>`);
+});
+
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find((user) => user.username === username);
+  if (!user) {
+    return res.send("Invalid user!");
+  }
+  const isValid = await bcrypt.compare(password, user.password);
+  if (!isValid) {
+    return res.send("Password is not valid!");
+  }
+  console.log(username, password);
+  res.send(`${username} logged in!`);
+});
 
 app.listen(3000, () =>
   console.log("Server listening on http://localhost:3000")
