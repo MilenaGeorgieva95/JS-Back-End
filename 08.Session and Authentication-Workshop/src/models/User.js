@@ -7,13 +7,10 @@ const userSchema = new Schema({
 });
 
 //pre validate post => pre save post
-userSchema.pre('save', async function (){
-    console.log(this._id)
-    this.password = await bcrypt.hash(this.password, 10);
+userSchema.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 const User = model("User", userSchema);
 
 export default User;
-
-
