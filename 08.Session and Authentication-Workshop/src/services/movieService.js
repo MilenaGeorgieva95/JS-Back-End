@@ -37,7 +37,6 @@ function createMovie(movieData) {
     year: Number(movieData.year),
     owner: movieData.owner,
   });
-  console.log(movie);
   return movie;
 }
 

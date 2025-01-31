@@ -15,10 +15,12 @@ export const authMiddleware = (req, res, next) => {
     const decodedToken = jwt.verify(token, SECRET);
     //Attach decoded token to req
     req.user = decodedToken;
+    //req.locals, res.locals
+    res.locals.user = decodedToken;
     next();
   } catch (err) {
-//invalid token case
-    res.clearCookie('auth');
-    res.redirect('/auth/login');
+    //invalid token case
+    res.clearCookie("auth");
+    res.redirect("/auth/login");
   }
 };
