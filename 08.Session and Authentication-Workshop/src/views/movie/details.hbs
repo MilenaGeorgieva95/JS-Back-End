@@ -32,15 +32,19 @@
         <p class="card-category">Category: {{movie.category}}</p>
 
       </div>
-
-      <div class="details-btn">
-        <div id="attach-button">
-          <a href="/movies/{{movie._id}}/attach-cast" >Attach
-            Cast</a>
+      {{#if isOwner}}
+        <div class="details-btn">
+          <div id="attach-button">
+            <a href="/movies/{{movie._id}}/attach-cast">Attach Cast</a>
+          </div>
+          <div id="edit-button">
+            <a href="/movies/{{movie._id}}/edit">Edit</a>
+          </div>
+          <div id="delete-button">
+            <a href="/movies/{{movie._id}}/delete">Delete</a>
+          </div>
         </div>
-        <button id="edit-button">Edit</button>
-        <button id="delete-button">Delete</button>
-      </div>
+      {{/if}}
     </div>
     <div class="card_right">
       <img src="{{movie.imageURL}}" alt="{{movie.alt}}" />

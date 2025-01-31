@@ -10,8 +10,8 @@ movieController.get("/create", (req, res) => {
 
 movieController.post("/create", async (req, res) => {
   const movieCreator = req.user._id;
-  if(!movieCreator){
-    return res.redirect('/404')
+  if (!movieCreator) {
+    return res.redirect("/404");
   }
   const movieData = req.body;
   movieData.owner = movieCreator;
@@ -39,7 +39,11 @@ movieController.get("/:movieId/details", async (req, res) => {
     .findMovieByIdWithCast(req.params.movieId)
     .lean();
   movie.stars = movieServices.getStars(movie.rating);
-  res.render("movie/details", { movie });
+  let isOwner = false;
+  if (req.user) {
+    isOwner = movie.owner.toString() === req.user._id;
+  }
+  res.render("movie/details", { movie, isOwner });
 });
 
 movieController.get("/:movieId/attach-cast", async (req, res) => {

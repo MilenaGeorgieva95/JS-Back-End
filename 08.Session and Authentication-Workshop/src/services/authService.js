@@ -12,12 +12,12 @@ async function login(email, password) {
   //Check if user exists
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Error("Invalid email or password!");
+    throw new Error("Invalid email!");
   }
   //Check password is correct
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) {
-    throw new Error("Invalid email or password!");
+    throw new Error("Invalid password!");
   }
   //Generate token
   const payload={
