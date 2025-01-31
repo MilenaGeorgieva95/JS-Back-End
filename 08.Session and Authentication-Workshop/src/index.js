@@ -1,9 +1,9 @@
+import 'dotenv/config';
 import express from "express";
 import handlebars from "express-handlebars";
 import routes from "./routes.js";
 import showRatingHelper from "./helpers/rating-helper.js";
 import mongoose from "mongoose";
-import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import { authMiddleware } from "./middlewares/authMiddleware.js";
 

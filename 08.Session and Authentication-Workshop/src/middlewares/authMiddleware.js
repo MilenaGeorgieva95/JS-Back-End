@@ -17,6 +17,8 @@ export const authMiddleware = (req, res, next) => {
     req.user = decodedToken;
     next();
   } catch (err) {
-    //TODO: invalid token
+//invalid token case
+    res.clearCookie('auth');
+    res.redirect('/auth/login');
   }
 };
