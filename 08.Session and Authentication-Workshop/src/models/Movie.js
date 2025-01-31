@@ -17,6 +17,10 @@ const movieSchema = new Schema({
       ref: "Cast",
     },
   ],
+  owner: {
+    type: Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 //'Movies' name in the DB

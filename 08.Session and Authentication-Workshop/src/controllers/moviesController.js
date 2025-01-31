@@ -9,7 +9,12 @@ movieController.get("/create", (req, res) => {
 });
 
 movieController.post("/create", async (req, res) => {
+  const movieCreator = req.user._id;
+  if(!movieCreator){
+    return res.redirect('/404')
+  }
   const movieData = req.body;
+  movieData.owner = movieCreator;
   movieData.alt = movieData.title;
   const newMovie = await movieServices.createMovie(movieData);
   res.redirect(`/movies/${newMovie._id}/details`);
@@ -29,7 +34,7 @@ movieController.get("/search", async (req, res) => {
 // });
 
 movieController.get("/:movieId/details", async (req, res) => {
-  console.log(req.user)
+  console.log(req.user);
   const movie = await movieServices
     .findMovieByIdWithCast(req.params.movieId)
     .lean();
