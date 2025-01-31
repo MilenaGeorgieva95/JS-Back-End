@@ -196,3 +196,9 @@ img > .text-shadow {
   border-radius: 10px;
   border: 13px solid #313131;
 }
+
+#short-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

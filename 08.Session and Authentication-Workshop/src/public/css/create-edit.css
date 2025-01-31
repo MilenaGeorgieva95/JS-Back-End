@@ -17,10 +17,10 @@
   resize: none;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .createForm,
@@ -39,12 +39,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .info-edit {
   width: 250px;
-  background: #6D6875;
+  background: #6d6875;
   padding: 55px 5px;
   border-right: 5px solid black;
 }
 
-.info-edit>h2 {
+.info-edit > h2 {
   padding-top: 150%;
   font-weight: bold;
   font-size: 23px;
@@ -69,25 +69,43 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .details-btn {
-  margin-left: 20%;
+  display: flex;
+  margin-left: 7%;
+  max-width: 40%;
 }
 
-#edit-button, #delete-button {
-  border: 1px solid black;
+#edit-button,
+#delete-button,
+#attach-button {
+  border: none;
+  border-radius: 12px;
   background: #b5838d;
   font-size: 18px;
-  margin-top: 20px;
+  margin-top: 10px;
   color: white;
   padding: 10px 43px;
   cursor: pointer;
   transition: 0.4s;
-  margin-right: 50px;
+  margin-right: 46px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
-#edit-button:hover, #delete-button:hover {
+#attach-button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+#attach-button a {
+  color: white;
+}
+
+#edit-button:hover,
+#delete-button:hover,
+#attach-button:hover {
   background: rgba(20, 20, 20, 0.8);
-  padding: 10px 80px;
+  padding: 10px 60px;
 }
 
 .no-cast {
