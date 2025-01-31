@@ -4,6 +4,7 @@ import routes from "./routes.js";
 import showRatingHelper from "./helpers/rating-helper.js";
 import mongoose from "mongoose";
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.set("views", "src/views");
 app.use("/static", express.static("src/public"));
 //parse form data POST params as req.body
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //routes
 app.use(routes);
