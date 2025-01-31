@@ -5,6 +5,7 @@ import showRatingHelper from "./helpers/rating-helper.js";
 import mongoose from "mongoose";
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
+import { authMiddleware } from "./middlewares/authMiddleware.js";
 
 const app = express();
 
@@ -35,11 +36,12 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", "src/views");
 
-//express
+//express and middlewares
 app.use("/static", express.static("src/public"));
 //parse form data POST params as req.body
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(authMiddleware);
 
 //routes
 app.use(routes);

@@ -29,6 +29,7 @@ movieController.get("/search", async (req, res) => {
 // });
 
 movieController.get("/:movieId/details", async (req, res) => {
+  console.log(req.user)
   const movie = await movieServices
     .findMovieByIdWithCast(req.params.movieId)
     .lean();
