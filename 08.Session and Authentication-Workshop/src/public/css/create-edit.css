@@ -84,8 +84,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 18px;
   margin-top: 10px;
   color: white;
-  padding: 10px 43px;
-  cursor: pointer;
+
   transition: 0.4s;
   margin-right: 46px;
   font-weight: bold;
@@ -95,14 +94,21 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .details-btn a {
+  display: block;
+  padding: 10px 43px;
   color: white;
+  cursor: pointer;
+}
+
+.details-btn a:hover {
+padding: 10px 60px;
 }
 
 #edit-button:hover,
 #delete-button:hover,
 #attach-button:hover {
   background: rgba(20, 20, 20, 0.8);
-  padding: 10px 60px;
+  
 }
 
 .no-cast {

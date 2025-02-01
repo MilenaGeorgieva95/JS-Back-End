@@ -1,15 +1,15 @@
 function getCategories(movieCategory) {
   const categories = [
-    { value: "tv-show", label: "TV Show", selected: false },
-    { value: "animation", label: "Animation", selected: false },
-    { value: "movie", label: "Movie", selected: false },
-    { value: "documentary", label: "Documentary", selected: false },
-    { value: "short-film", label: "Short Film", selected: false },
+    { value: "tv-show", label: "TV Show"},
+    { value: "animation", label: "Animation"},
+    { value: "movie", label: "Movie"},
+    { value: "documentary", label: "Documentary"},
+    { value: "short-film", label: "Short Film"},
   ];
 
   const selCategory = categories.find((el) => el.value === movieCategory);
   if (selCategory) {
-    selCategory.selected = true;
+    selCategory.selected = 'selected';
   }
   return categories;
 }
