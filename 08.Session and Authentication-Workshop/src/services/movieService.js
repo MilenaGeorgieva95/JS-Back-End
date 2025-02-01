@@ -55,6 +55,10 @@ function del(movieId){
 return Movie.findByIdAndDelete(movieId);
 }
 
+function updateMovie(id, movieData){
+return Movie.findByIdAndUpdate(id, movieData)
+}
+
 const movieServices = {
   getAllMovies,
   findMovieById,
@@ -64,6 +68,7 @@ const movieServices = {
   attachCast,
   attachAndUpdate,
   del,
+  updateMovie,
 };
 
 export default movieServices;

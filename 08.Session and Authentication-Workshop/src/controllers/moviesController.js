@@ -79,4 +79,19 @@ movieController.get("/:movieId/edit", async (req, res) => {
   res.render("movie/edit", { movie, categories });
 });
 
+movieController.post("/:movieId/edit", async (req, res) => {
+  const movieId = req.params.movieId;
+  const newMovieData = req.body;
+
+  const movie = await movieServices.findMovieById(movieId);
+  const userId = req.user._id;
+  if (movie.owner.toString() !== userId) {
+    return res.redirect("/404");
+  }
+
+  newMovieData.alt = newMovieData.title;
+  await movieServices.updateMovie(movieId, newMovieData);
+  res.redirect(`/movies/${movieId}/details`);
+});
+
 export default movieController;
