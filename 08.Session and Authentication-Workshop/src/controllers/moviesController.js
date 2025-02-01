@@ -1,6 +1,7 @@
 import { Router } from "express";
 import movieServices from "../services/movieService.js";
 import castService from "../services/castService.js";
+import getCategories from "../helpers/categories-helper.js";
 
 const movieController = Router();
 
@@ -61,20 +62,21 @@ movieController.post("/:movieId/attach-cast", async (req, res) => {
 
 movieController.get("/:movieId/delete", async (req, res) => {
   const movieId = req.params.movieId;
-  const movie=await movieServices.findMovieById(movieId);
+  const movie = await movieServices.findMovieById(movieId);
 
-  if(movie&&movie.owner.toString()===req.user._id){
-  await movieServices.del(movieId);
-   return res.redirect("/");
+  if (movie && movie.owner.toString() === req.user._id) {
+    await movieServices.del(movieId);
+    return res.redirect("/");
   }
 
-  res.redirect("/404")
+  res.redirect("/404");
 });
 
 movieController.get("/:movieId/edit", async (req, res) => {
   const movieId = req.params.movieId;
   const movie = await movieServices.findMovieById(movieId).lean();
-  res.render("movie/edit", {movie});
+  const categories = getCategories(movie.category);
+  res.render("movie/edit", { movie, categories });
 });
 
 export default movieController;
