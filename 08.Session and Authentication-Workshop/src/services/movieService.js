@@ -47,8 +47,12 @@ async function attachCast(movieId, castId) {
   return await movie.save();
 }
 //Attach 2
-async function attachAndUpdate(movieId, castId) {
+function attachAndUpdate(movieId, castId) {
   return Movie.findByIdAndUpdate(movieId, { $push: { casts: castId } });
+}
+
+function del(movieId){
+return Movie.findByIdAndDelete(movieId);
 }
 
 const movieServices = {
@@ -59,6 +63,7 @@ const movieServices = {
   createMovie,
   attachCast,
   attachAndUpdate,
+  del,
 };
 
 export default movieServices;
