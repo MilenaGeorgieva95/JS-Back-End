@@ -9,8 +9,16 @@ authController.get("/register", (req, res) => {
 });
 
 authController.post("/register", async (req, res) => {
-  const userData = req.body;
-  const newUser = await authService.register(userData);
+  const {email, password, repass} = req.body;
+  if(password!==repass){
+    return res.status(400).end();
+  }
+  try {
+    await authService.register(email, password, repass);
+  } catch (err) {
+    console.log(err);
+   return res.redirect('/auth/register');
+  }
   res.redirect("/auth/login");
 });
 

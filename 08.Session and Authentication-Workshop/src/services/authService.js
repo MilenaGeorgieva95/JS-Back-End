@@ -4,8 +4,13 @@ import jwt from 'jsonwebtoken';
 
 const SECRET = process.env.JWT_SECRET
 
-function register(userData) {
-  return User.create(userData);
+async function register(email, password, repass) {
+  const userCount = await User.countDocuments({email});
+
+  if(userCount>0){
+    throw new Error('User alredy exists!')
+  }
+  return User.create({email, password, repass});
 }
 
 async function login(email, password) {
