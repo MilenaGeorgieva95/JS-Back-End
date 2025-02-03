@@ -1,0 +1,14 @@
+npm i validators:
+joi, yup, 
+zod => dveloped to work well with TypeScrypt schemas
+validator => used to check formats
+express-validator => works well with express
+
+Error types:
+Technical/Network => e.g. server down
+Usual/Expected => e.g. invalid input, db CRUD returns error
+Bugs/Logical => E2E, unit testing
+
+Handling errors:
+Sync code => try/catch
+Async => then()/catch(), try/catch
