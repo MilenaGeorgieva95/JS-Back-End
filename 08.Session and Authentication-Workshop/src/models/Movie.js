@@ -3,8 +3,8 @@ import { Schema, model, Types } from "mongoose";
 const movieSchema = new Schema({
   title: {
     type: String,
-    required: true,
-    minLenght: 5,
+    required: [true, 'Movie title is required!'],
+    minLength: 5,
     validate: [
       /^[A-Za-z0-9 ]+$/,
       "Title can contain only alphanumeric characters!",
@@ -12,13 +12,13 @@ const movieSchema = new Schema({
   },
   category: {
     type: String,
-    required: true,
-    minLenght: 5,
+    required: [true,'Category is required!'],
+    minLength: 5,
   },
   genre: {
     type: String,
     required: true,
-    minLenght: 5,
+    minLength: 5,
     lowercase: true,
     validate: [
       /^[A-Za-z0-9 ]+$/,
@@ -28,7 +28,7 @@ const movieSchema = new Schema({
   director: {
     type: String,
     required: true,
-    minLenght: 5,
+    minLength: 5,
     validate: [
       /^[A-Za-z0-9 ]+$/,
       "Director can contain only alphanumeric characters!",
@@ -61,7 +61,7 @@ const movieSchema = new Schema({
   description: {
     type: String,
     required: true,
-    minLenght: [20, "Description should be at least 20 characters long!"],
+    minLength: [20, "Description should be at least 20 characters long!"],
     validate: [
       /^[A-Za-z0-9 ]+$/,
       "Description can contain only alphanumeric characters!",

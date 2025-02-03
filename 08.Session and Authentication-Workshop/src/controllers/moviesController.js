@@ -7,7 +7,10 @@ import { isAuth } from "../middlewares/authMiddleware.js";
 const movieController = Router();
 
 movieController.get("/create", (req, res) => {
-  res.render("movie/create");
+  const movie={
+    categories: getCategories()
+  }
+  res.render("movie/create", {movie});
 });
 
 movieController.post("/create", isAuth, async (req, res) => {
@@ -18,8 +21,19 @@ movieController.post("/create", isAuth, async (req, res) => {
   const movieData = req.body;
   movieData.owner = movieCreator;
   movieData.alt = movieData.title;
-  const newMovie = await movieServices.createMovie(movieData);
-  res.redirect(`/movies/${newMovie._id}/details`);
+
+  //?Show error message from the errors object
+  try {
+    const newMovie = await movieServices.createMovie(movieData);
+    res.redirect(`/movies/${newMovie._id}/details`);
+  } catch (err) {
+    const errorMessage = Object.values(err.errors)[0]?.message;
+    movieData.categories=getCategories(movieData.category);
+    return res.render("movie/create", {
+      error: errorMessage,
+      movie: movieData,
+    });
+  }
 });
 
 movieController.get("/search", async (req, res) => {

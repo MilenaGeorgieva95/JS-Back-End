@@ -9,6 +9,11 @@
   <body>
 
     <div id="box">
+    {{#if error}}    
+      <div class="error-container">
+        <p>Error: {{error}}</p>
+      </div>
+    {{/if}}
       
       <nav>
         {{>nav}}
