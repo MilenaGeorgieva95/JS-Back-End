@@ -4,7 +4,7 @@
    * Add start scripts
    * Add initial folder structure
    * Change module type
-   * Add debugging
+   * Add debugging - Node.js: Nodemon Setup config
    * Add env variable file
    * Install and configure dotenv `npm i dotenv`
 2. Setup Express
