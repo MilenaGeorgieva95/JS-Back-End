@@ -48,7 +48,7 @@ const movieSchema = new Schema({
     type: Number,
     validate: {
       validator: function (ratingValue) {
-        if (thisthis.year >= 2000) {
+        if (this.year >= 2000) {
           return !!ratingValue;
         }
         return true;

@@ -84,7 +84,7 @@ movieController.get("/:movieId/delete", isAuth, async (req, res) => {
     return res.redirect("/");
   }
 
-  res.redirect("/404");
+  res.redirect("/404", {error: 'Invalid owner'});
 });
 
 movieController.get("/:movieId/edit", isAuth, async (req, res) => {
