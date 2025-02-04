@@ -11,18 +11,7 @@
 
 <body>
     <header class="header">
-        <nav>
-            <img src="./static/images/logo.avif" class="logo">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="#">All Volcanoes</a></li>
-                <li><a href="#">Create Volcano Wiki</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </nav>
+        {{>nav}}
     </header>
 
     <main>
@@ -33,13 +22,18 @@
                 <p>Error</p>
             </div>
         </div> -->
+    {{#if error}}
+        <div>
+                <div class="errorContainer">
+                    <p>Error</p>
+                </div>
+        </div>   
+    {{/if}}
         
         {{{body}}}
     </main>
 
-    <footer>
-        <p>&copy JS Back-End 2024</p>
-    </footer>
+{{>footer}}
 
 </body>
 
