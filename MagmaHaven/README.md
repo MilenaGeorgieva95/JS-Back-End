@@ -11,7 +11,7 @@
    * Install `npm i express`
    * Add static resources
    * Configure static middleware
-   * Add body parser
+   * Add body parser - express.urlencoded({extended:false})
    * Add moduler routers
 3. Setup handlebars
    * Install handlebars `npm i express-handlebars`
