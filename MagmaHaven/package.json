@@ -1,11 +1,19 @@
 {
   "name": "magmahaven",
   "version": "1.0.0",
-  "description": "1. Initialize project \r    * Initialize node package `npm init -y`\r    * Install nodemon `npm i -D nodemon`\r    * Add start scripts\r    * Add initial folder structure\r    * Change module type\r    * Add debugging\r    * Add env variable file\r    * Install and configure dotenv `npm i dotenv`\r 2. Setup Express\r    * Install `npm i express`\r    * Add static resources\r    * Configure static middleware\r    * Add body parser\r    * Add moduler routers\r 3. Setup handlebars\r    * Install handlebars `npm i express-handlebars`\r    * Add view engine\r    * Set view directory\r    * Set view engine\r    * Add home view\r    * Add layout\r    * Add partials dir\r    * Add dynamic title\r 4. Add database\r    * Install mongoose `npm i mongoose`\r    * Connect to local db\r    * Add user model\r 5. Register\r    * Fix navigation links\r    * Add template\r    * Add auth controller\r    * Render page on get\r    * Post action\r    * Add auth service register\r    * Install bcrypt `npm i bcrypt`\r    * Hash password\r    * Check for password missmatch\r    * Check if user exists\r 6. Login\r    * Install jsonwebtoken `npm i jsonwebtoken`\r    * Convert jsonwebtoken to promise based lib (optionally)\r    * Add typescript declaration documentation (optionally)\r    * Install cookie-parser `npm i cookie-parser`\r    * Add cookie parser middleware\r    * Add login page\r    * Add login post action\r    * Add authService login method\r    * Generate jwt\r    * Return jwt with http only cookie\r    * Auto login after register\r 7. Logout\r 8. Authorization\r    * Add auth middleware\r    * Add isAuth middleware\r 9. Error Handling\r    * Add error notification\r    * Add error message util\r    * Handle register errors\r    * Handle login errors\r 10. Dynamic Navigation",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
+  "type": "module",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
