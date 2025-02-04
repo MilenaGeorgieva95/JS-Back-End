@@ -7,14 +7,14 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required!'],
     unique: true,
     minLength: [10, "Email is too short!"],
-    validate: [/@[A-Za-z0-9].[A-Za-z0-9]+$/, "Invalid email address!"],
+    validate: [/@[A-Za-z0-9]+.[A-Za-z0-9]+$/, "Invalid email address!"],
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'Password is required!'],
     minLength: [6, "Password is too short!"],
     maxLength: [20, "Maximum 20 characters!"],
     validate: [/^[A-Za-z0-9]+$/, "Invalid password!"],
