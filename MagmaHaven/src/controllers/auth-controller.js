@@ -11,8 +11,9 @@ authController.post("/register", async (req, res) => {
   const { username, email, password, repass } = req.body;
 
   try {
-    await authService.register(username, email, password, repass);
-    res.redirect("/auth/login");
+    const token=await authService.register(username, email, password, repass);
+    res.cookie('auth', token, {httpOnly: true})
+    res.redirect("/");
   } catch (error) {
     // const errorMessage = err.errors ? Object.values(err.errors)[0]?.message : err.message;
     const errorMessage = error.message;
@@ -20,7 +21,6 @@ authController.post("/register", async (req, res) => {
       error: errorMessage,
       username,
       email,
-      password,
     });
   }
 });
@@ -29,9 +29,16 @@ authController.get("/login", (req, res) => {
   res.render("auth/login", { title: "Login Page" });
 });
 
-authController.post("/login", (req, res) => {
+authController.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  res.send(email);
+  try {
+    const token = await authService.login(email, password);
+    res.cookie("auth", token, {httpOnly: true});
+    res.redirect("/");
+  } catch (error) {
+    const errorMessage = error.message;
+    res.render("auth/login", { email, error: errorMessage });
+  }
 });
 
 export default authController;

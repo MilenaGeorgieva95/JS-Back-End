@@ -11,7 +11,7 @@
    * Install `npm i express`
    * Add static resources
    * Configure static middleware
-   * Add body parser - express.urlencoded({extended:false})
+   * Add body parser - `express.urlencoded({extended:false})`
    * Add moduler routers
 3. Setup handlebars
    * Install handlebars `npm i express-handlebars`
@@ -34,7 +34,7 @@
    * Post action
    * Add auth service register
    * Install bcrypt `npm i bcrypt`
-   * Hash password - in userSchema.pre('save)
+   * Hash password - `in userSchema.pre('save')`
    * Check for password missmatch
    * Check if user exists
 6. Login
@@ -42,7 +42,7 @@
    * Convert jsonwebtoken to promise based lib (optionally)
    * Add typescript declaration documentation (optionally)
    * Install cookie-parser `npm i cookie-parser`
-   * Add cookie parser middleware
+   * Add cookie parser middleware `app.use(cookieParser)`
    * Add login page
    * Add login post action
    * Add authService login method
