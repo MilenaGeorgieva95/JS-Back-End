@@ -8,19 +8,21 @@ authController.get("/register", (req, res) => {
 });
 
 authController.post("/register", async (req, res) => {
-const {username, email, password, repass} = req.body;
+  const { username, email, password, repass } = req.body;
 
-if(password!==repass){
-  res.render('auth/register', {error: "Passwords don't match!", username, email, password});
-}
-
-try {
-  await authService.register(username, email, password);
-  res.redirect('/auth/login');
-} catch (err) {
-  const errorMessage = Object.values(err.errors)[0]?.message; 
-  res.render('auth/register', {error: errorMessage, username, email, password})
-}
+  try {
+    await authService.register(username, email, password, repass);
+    res.redirect("/auth/login");
+  } catch (error) {
+    // const errorMessage = err.errors ? Object.values(err.errors)[0]?.message : err.message;
+    const errorMessage = error.message;
+    res.render("auth/register", {
+      error: errorMessage,
+      username,
+      email,
+      password,
+    });
+  }
 });
 
 authController.get("/login", (req, res) => {
@@ -28,7 +30,7 @@ authController.get("/login", (req, res) => {
 });
 
 authController.post("/login", (req, res) => {
-const {email, password} = req.body
+  const { email, password } = req.body;
   res.send(email);
 });
 
