@@ -18,9 +18,16 @@ export const authMiddleware = async (req, res, next) => {
   }
 };
 
-export const isAuth = (req, res, next) => {
+export const isNotLoggedIn = (req, res, next) => {
     if(!req.user){
-      return res.redirect('/auth/login')
+      return res.redirect('/404')
     }
     next();
+}
+
+export const isLoggedIn=(req, res, next) => {
+  if(req.user){
+    return res.redirect('/404')
+  }
+  next();
 }

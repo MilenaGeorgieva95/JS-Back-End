@@ -1,10 +1,11 @@
 import { Router } from "express";
 import authService from "../services/auth-service.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
+import { isLoggedIn, isNotLoggedIn } from "../middlewares/auth-middleware.js";
 
 const authController = Router();
 
-authController.get("/register", (req, res) => {
+authController.get("/register", isLoggedIn, (req, res) => {
   res.render("auth/register", { title: "Register Page" });
 });
 
@@ -25,7 +26,7 @@ authController.post("/register", async (req, res) => {
   }
 });
 
-authController.get("/login", (req, res) => {
+authController.get("/login", isLoggedIn, (req, res) => {
   res.render("auth/login", { title: "Login Page" });
 });
 
@@ -41,7 +42,7 @@ authController.post("/login", async (req, res) => {
   }
 });
 
-authController.get("/logout", (req, res) => {
+authController.get("/logout", isNotLoggedIn, (req, res) => {
   res.clearCookie("auth");
   res.redirect("/");
 });
