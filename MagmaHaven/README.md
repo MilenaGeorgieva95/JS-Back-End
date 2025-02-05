@@ -34,7 +34,7 @@
    * Post action
    * Add auth service register
    * Install bcrypt `npm i bcrypt`
-   * Hash password
+   * Hash password - in userSchema.pre('save)
    * Check for password missmatch
    * Check if user exists
 6. Login
