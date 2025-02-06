@@ -5,8 +5,13 @@ async function createVolcano(data, user) {
   return Volcano.create(data);
 }
 
+function getAll(){
+  return Volcano.find({});
+}
+
 const volcanoesService = {
   createVolcano,
+  getAll,
 };
 
 export default volcanoesService;

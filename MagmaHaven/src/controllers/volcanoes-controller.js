@@ -17,7 +17,7 @@ volcanoesController.post('/create', isNotLoggedIn, async (req, res)=>{
     
     try {
        await volcanoesService.createVolcano(volcanoData, user)
-       res.redirect('/volcanoes/catalog'); 
+       res.redirect('/volcanoes'); 
     } catch (err) {
         const errorMessge=getErrorMessage(err)
         const types=getTypes(volcanoData.typeVolcano);
@@ -26,8 +26,11 @@ volcanoesController.post('/create', isNotLoggedIn, async (req, res)=>{
      
 })
 
-volcanoesController.get('/catalog', (req, res)=>{
-    res.render('volcanoes/catalog');   
+volcanoesController.get('/', async (req, res)=>{
+const volcanoes = await volcanoesService.getAll().lean()
+console.log(volcanoes);
+
+    res.render('volcanoes/catalog', {volcanoes});   
 })
 
 export default volcanoesController;
