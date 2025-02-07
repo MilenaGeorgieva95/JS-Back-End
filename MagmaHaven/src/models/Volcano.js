@@ -47,7 +47,6 @@ const volcanoSchema = new Schema({
     type: Types.ObjectId,
     ref: "User",
   },
-  // {a collection of Users (a reference to the User model)},
 });
 
 const Volcano = model("Volcano", volcanoSchema);
