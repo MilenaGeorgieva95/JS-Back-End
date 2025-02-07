@@ -45,7 +45,7 @@ volcanoesController.get("/:volcanoId/details", async (req, res) => {
   const id = req.params.volcanoId;
   try {
     const volcano = await volcanoesService.getOneById(id).lean()
-    volcano.votesCount = volcano.voteList.length;
+    volcano.votesCount = volcano.voteList?.length||0;
     const isUser = !!req.user;
     const isOwner = volcano.owner.toString() === req.user?._id;
     const isVoted = volcano.voteList.some(userId=>userId.toString()===req.user?._id);
