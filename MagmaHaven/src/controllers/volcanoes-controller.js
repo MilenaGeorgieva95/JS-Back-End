@@ -48,7 +48,7 @@ volcanoesController.get("/:volcanoId/details", async (req, res) => {
     volcano.votesCount = volcano.voteList.length;
     const isUser = !!req.user;
     const isOwner = volcano.owner.toString() === req.user?._id;
-    const isVoted = volcano.voteList.some(userId=>userId==req.user?._id);
+    const isVoted = volcano.voteList.some(userId=>userId.toString()===req.user?._id);
 
     res.render("volcanoes/details", {
       volcano,
