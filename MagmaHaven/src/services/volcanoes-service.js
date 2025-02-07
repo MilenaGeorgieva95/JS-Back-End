@@ -14,14 +14,33 @@ function getOneById(id){
 }
 
 function vote(volcanoId, userId){
-  return Volcano.findByIdAndUpdate({_id: volcanoId}, {$push: {voteList: userId}})
+  return Volcano.findByIdAndUpdate({_id: volcanoId}, {$push: {voteList: userId}}, {runValidators: true})
 }
+
+function del(volcanoId){
+  return Volcano.findByIdAndDelete(volcanoId)
+}
+
+//!{runValidators: true} for .findByIdAndUpdate()
+function edit(volcanoId, volcanoData){
+  return Volcano.findByIdAndUpdate(volcanoId, volcanoData, {runValidators: true})
+}
+
+async function isOwner(volcanoId, userId){
+  const volcano= await Volcano.findById(volcanoId).lean();
+  const volcanoOwnerId=volcano.owner;
+  return volcanoOwnerId.toString()===userId
+  }
+
 
 const volcanoesService = {
   createVolcano,
   getAll,
   getOneById,
-  vote
+  vote,
+  del,
+  edit,
+  isOwner
 };
 
 export default volcanoesService;
