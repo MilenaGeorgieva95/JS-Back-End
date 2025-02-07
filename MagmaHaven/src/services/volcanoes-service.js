@@ -5,8 +5,17 @@ async function createVolcano(data, user) {
   return Volcano.create(data);
 }
 
-function getAll() {
-  return Volcano.find({});
+ function getAll(filter={}) {
+  const result= Volcano.find({});
+
+  if(filter.name){
+    result.find({name: {$regex: filter.name, $options: 'i'}})
+  }
+
+  if(filter.typeVolcano){
+    result.find({typeVolcano: filter.typeVolcano})
+  }
+  return result;
 }
 
 function getOneById(id) {

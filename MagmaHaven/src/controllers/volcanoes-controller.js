@@ -6,6 +6,16 @@ import { getTypes } from "../utils/categoriesUtils.js";
 
 const volcanoesController = Router();
 
+volcanoesController.get("/", async (req, res) => {
+  try {
+    const volcanoes = await volcanoesService.getAll().lean();
+    res.render("volcanoes/catalog", { volcanoes, title: "Catalogue Page" });
+  } catch (err) {
+    const error = getErrorMessage(err);
+    res.redirect("/404", { error });
+  }
+});
+
 volcanoesController.get("/create", isNotLoggedIn, (req, res) => {
   const types = getTypes();
   res.render("volcanoes/create", { types, title: "Create Page" });
@@ -30,14 +40,11 @@ volcanoesController.post("/create", isNotLoggedIn, async (req, res) => {
   }
 });
 
-volcanoesController.get("/", async (req, res) => {
-  try {
-    const volcanoes = await volcanoesService.getAll().lean();
-    res.render("volcanoes/catalog", { volcanoes, title: "Catalogue Page" });
-  } catch (err) {
-    const error = getErrorMessage(err);
-    res.redirect("/404", { error });
-  }
+volcanoesController.get("/search", async (req, res) => {
+  const params = req.query;
+  const volcanoes = await volcanoesService.getAll(params).lean();
+  const volcanoTypes=getTypes(params.typeVolcano)
+  res.render("volcanoes/search", { title: 'Search Page',volcanoes, name:params.name, types: volcanoTypes });
 });
 
 volcanoesController.get("/:volcanoId/details", async (req, res) => {
@@ -72,8 +79,8 @@ volcanoesController.get("/:volcanoId/vote", isNotLoggedIn, async (req, res) => {
     if (isOwner) {
       return res.redirect(`/volcanoes/${volcanoId}/details`);
     }
-    const hasVoted=await volcanoesService.hasVoted(volcanoId, userId);
-    if(!hasVoted){
+    const hasVoted = await volcanoesService.hasVoted(volcanoId, userId);
+    if (!hasVoted) {
       await volcanoesService.vote(volcanoId, userId);
     }
     res.redirect(`/volcanoes/${volcanoId}/details`);

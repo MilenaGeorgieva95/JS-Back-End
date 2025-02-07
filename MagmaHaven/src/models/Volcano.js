@@ -20,6 +20,7 @@ const volcanoSchema = new Schema({
   image: {
     type: String,
     required: true,
+    validate: /^https?:\/\//,
   },
   typeVolcano: {
     type: String,
