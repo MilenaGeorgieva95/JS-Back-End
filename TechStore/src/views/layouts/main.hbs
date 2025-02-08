@@ -5,11 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechStore - Laptops and Computers</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 
 <body>
-    {{{body}}}
+
+{{>header}}
+
+
+    <!-- In case of error, you should display div with class "errorContainer" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+    {{!-- <div>
+        <div class="errorContainer">
+            <p>Error</p>
+        </div>
+    </div> --}}
+
+{{{body}}}
+
+{{>footer}}
 </body>
 
 </html>
