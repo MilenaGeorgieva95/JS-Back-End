@@ -59,3 +59,12 @@
    * Handle register errors
    * Handle login errors
 10. Dynamic Navigation
+
+##Exam Steps
+1.Modify views
+*login / register
+*home / 404
+*main layout with dynamic navigation
+2.Add static resources
+3.Modify DB name
+4.Modify user model
