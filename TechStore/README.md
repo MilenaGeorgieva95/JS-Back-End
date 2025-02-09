@@ -59,6 +59,7 @@
    * Handle register errors
    * Handle login errors
 10. Dynamic Navigation
+* * * ==> DON'T FORGET PAGE TITLES
 
 ##Exam Steps
 1.Modify views
