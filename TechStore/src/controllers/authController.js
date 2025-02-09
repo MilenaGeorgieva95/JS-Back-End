@@ -1,11 +1,12 @@
 import { Router } from "express";
 import authService from "../services/authService.js";
 import { isGuest, isUser } from "../middlewares/authMiddleware.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
 
 const authController = Router();
 
 authController.get("/register", isGuest, (req, res) => {
-  res.render("auth/register");
+  res.render("auth/register", {title: 'Register Page'});
 });
 
 authController.post("/register", isGuest, async (req, res) => {
@@ -15,13 +16,13 @@ authController.post("/register", isGuest, async (req, res) => {
     res.cookie('auth', token, {httpOnly: true})
     res.redirect("/");
   } catch (err) {
-    console.log(err);
-    res.end();
+   const errorMessage = getErrorMessage(err);
+   res.render("auth/register", {title: 'Register Page', error: errorMessage, userData});
   }
 });
 
 authController.get("/login", isGuest, (req, res) => {
-  res.render("auth/login");
+  res.render("auth/login", {title: 'Login Page'});
 });
 
 authController.post("/login", isGuest, async (req, res) => {
@@ -31,8 +32,8 @@ authController.post("/login", isGuest, async (req, res) => {
     res.cookie("auth", token, {httpOnly: true});
     res.redirect("/");
   } catch (err) {
-    console.log(err);
-    res.end();
+    const errorMessage = getErrorMessage(err);
+    res.render("auth/login", {title: 'Login Page', error: errorMessage, email});
   }
 });
 
