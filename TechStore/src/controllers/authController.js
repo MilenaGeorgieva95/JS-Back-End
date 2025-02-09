@@ -1,17 +1,18 @@
 import { Router } from "express";
 import authService from "../services/authService.js";
+import { isGuest, isUser } from "../middlewares/authMiddleware.js";
 
 const authController = Router();
 
-authController.get("/register", (req, res) => {
+authController.get("/register", isGuest, (req, res) => {
   res.render("auth/register");
 });
 
-authController.post("/register", async (req, res) => {
+authController.post("/register", isGuest, async (req, res) => {
   const userData = req.body;
   try {
     const token = await authService.register(userData);
-    res.cookie('auth', token)
+    res.cookie('auth', token, {httpOnly: true})
     res.redirect("/");
   } catch (err) {
     console.log(err);
@@ -19,20 +20,25 @@ authController.post("/register", async (req, res) => {
   }
 });
 
-authController.get("/login", (req, res) => {
+authController.get("/login", isGuest, (req, res) => {
   res.render("auth/login");
 });
 
-authController.post("/login", async (req, res) => {
+authController.post("/login", isGuest, async (req, res) => {
   const { email, password } = req.body;
   try {
     const token = await authService.login(email, password);
-    res.cookie("auth", token);
+    res.cookie("auth", token, {httpOnly: true});
     res.redirect("/");
   } catch (err) {
     console.log(err);
     res.end();
   }
+});
+
+authController.get("/logout", isUser, (req, res) => {
+  res.clearCookie('auth');
+  res.redirect('/')
 });
 
 export default authController;

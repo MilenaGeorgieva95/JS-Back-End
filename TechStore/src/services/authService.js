@@ -3,8 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config.js";
 
-
-
 async function register(userData) {
   if (userData.password !== userData.rePass) {
     throw new Error("Passwords don't match!");
@@ -17,13 +15,11 @@ async function register(userData) {
     throw new Error("User already exists!");
   }
   const user = await User.create(userData);
-  return generateToken(user)
+  return generateToken(user);
 }
 
-
-
 async function login(email, password) {
-  const user = await User.findOne({ email }).lean();
+  const user = await User.findOne({ email });
 
   if (!user) {
     throw new Error("Invalid email or password!");
@@ -33,10 +29,8 @@ async function login(email, password) {
   if (!isValid) {
     throw new Error("Invalid email or password!");
   }
-  const token = generateToken(user);
+  return generateToken(user);
 }
-
-
 
 function generateToken(user) {
   const payload = {
@@ -47,8 +41,6 @@ function generateToken(user) {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "2h" });
   return token;
 }
-
-
 
 const authService = {
   register,
