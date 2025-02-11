@@ -1,6 +1,15 @@
 import express from "express";
-import routes from "./routes.js";
 import cors from 'cors';
+import mongoose from "mongoose";
+
+import routes from "./routes.js";
+
+try {
+  await mongoose.connect('mongodb://localhost:27017', {dbName: 'furniture'})
+  console.log('DB connected!');
+} catch (err) {
+  console.log('Cannot connect to DB!');
+}
 
 const app = express();
 app.use(express.json());
