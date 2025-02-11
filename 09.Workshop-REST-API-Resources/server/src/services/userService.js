@@ -4,10 +4,14 @@ import jwt from "jsonwebtoken";
 const secret = "MYSECRET";
 
 const userService = {
-  register(email, password) {
-    //Check if user exists
+  async register(email, password) {
+    const user = await User.findOne({ email });
+    if (user) {
+      throw new Error("User already exists!");
+    }
 
-    return User.create({ email, password });
+    const newUser = await User.create({ email, password });
+    return genLoginRes(newUser);
   },
   async login(email, password) {
     const user = await User.findOne({ email });
@@ -18,19 +22,28 @@ const userService = {
     if (!isValid) {
       throw new Error("Invalid user or password!");
     }
-    const payload = {
-      _id: user._id,
-      email,
-    };
-    const token = jwt.sign(payload, secret, { expiresIn: "2h" });
-
-    const result = {
-      _id: user._id,
-      email,
-      accessToken: token,
-    };
-    return result;
+    return genLoginRes(user);
   },
+logout (){
+    //TODO: invalidate token
+    return true;
+}
 };
+
+
+function genLoginRes(user) {
+  const payload = {
+    _id: user._id,
+    email: user.email,
+  };
+  const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+
+  const result = {
+    _id: user._id,
+    email: user.email,
+    accessToken: token,
+  };
+  return result;
+}
 
 export default userService;

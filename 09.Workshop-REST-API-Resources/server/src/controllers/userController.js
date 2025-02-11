@@ -5,19 +5,20 @@ const userController = Router();
 
 userController.post("/register", async (req, res) => {
   const { email, password } = req.body;
-  const user = await userService.register(email, password);
+  const result = await userService.register(email, password);
+  res.json(result);
+});
 
-  res.json({
-    _id: user._id,
-    email,
-    accessToken: "",
-  });
-
-  userController.post("/login", async (req, res) => {
+userController.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const result = await userService.login(email, password);
     res.json(result);
   });
-});
+
+  userController.get("/logout", async (req, res) => {
+ await userService.logout();
+    res.status(204).end();
+  });
+
 
 export default userController;
