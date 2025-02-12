@@ -28,4 +28,16 @@ deviceController.post('/create', isUser, async (req, res)=>{
     
 });
 
+deviceController.get('/:deviceId/details', async (req, res)=>{
+  const deviceId=req.params.deviceId
+  const device= await deviceService.getOne(deviceId)
+  console.log(device);
+  
+  res.render('devices/details', {device})
+});
+
+deviceController.post('/:deviceId/details', (req, res)=>{
+  res.render('devices/create')
+});
+
 export default deviceController;
