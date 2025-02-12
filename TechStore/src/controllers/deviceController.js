@@ -5,6 +5,11 @@ import { getErrorMessage } from "../utils/errorUtils.js";
 
 const deviceController = Router();
 
+deviceController.get('/', async (req, res)=>{
+const allDevices= await deviceService.getAll();
+  res.render('devices/catalog',{devices:allDevices})
+});
+
 deviceController.get('/create', (req, res)=>{
   res.render('devices/create')
 });

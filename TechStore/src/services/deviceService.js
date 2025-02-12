@@ -6,11 +6,16 @@ function create(deviceData, userId) {
 }
 
 const getLatest3 = ()=>{
-return Device.find({}).sort({createdAt: 'desc'}).limit(3)
+return Device.find({}).sort({createdAt: 'desc', _id: 'desc'}).limit(3)
 //?Device.find({}, {}, {sort: {_id:-1}, limit: 3})
+}
+
+function getAll(){
+return Device.find({})
 }
 
 export default {
   create,
-  getLatest3
+  getLatest3,
+  getAll
 };
