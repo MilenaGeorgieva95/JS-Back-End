@@ -4,7 +4,7 @@
    * Add start scripts
    * Add initial folder structure
    * Change module type
-   * Add debugging - Node.js: Nodemon Setup config
+   * Add debugging
    * Add env variable file
    * Install and configure dotenv `npm i dotenv`
 2. Setup Express
@@ -59,3 +59,31 @@
    * Handle register errors
    * Handle login errors
 10. Dynamic Navigation
+* * * ==> DON'T FORGET PAGE TITLES
+
+##Exam Steps
+1.Modify views
+*login / register
+*home / 404
+*main layout with dynamic navigation
+2.Add static resources
+3.Modify DB name
+4.Modify user model
+
+## Adapt Skeleton to New Exam
+ - [ ] Remove old styles and paste new styles
+ - [ ] Copy all html files into views folder
+ - [ ] Extract new layout
+   - [ ] Add header and fix title
+   - [ ] Fix navigation
+   - [ ] Fix error notification
+   - [ ] Add {{{body}}}
+   - [ ] Add footer
+ - [ ] Switch home template
+ - [ ] Change db name
+ - [ ] Modify login page
+   - [ ] Add values to fields
+ - [ ] Modify register page
+   - [ ] Add values to fields
+ - [ ] Modify User model
+ - [ ] Modify token data
