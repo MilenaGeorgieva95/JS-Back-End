@@ -2,7 +2,7 @@ import { Schema, model, Types } from "mongoose";
 import bcrypt from "bcrypt";
 
 const userSchema = new Schema({
-  username: {
+  name: {
     type: String,
     required: [true, "Username is required!"],
     validate: [/^[A-Za-z0-9-.]+$/, "Invalid username!"],
