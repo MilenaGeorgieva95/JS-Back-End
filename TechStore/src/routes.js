@@ -9,4 +9,8 @@ router.use(homeController);
 router.use('/auth', authController);
 router.use('/devices', deviceController);
 
+router.all('*', (req, res)=>{
+    res.render('404');
+})
+
 export default router;
