@@ -46,10 +46,11 @@ deviceController.get("/:deviceId/prefer", async (req, res) => {
 const deviceId=req.params['deviceId'];
 const userId=req.user.id;
 try {
-  await deviceService.likeDevice(deviceId, userId);
+await deviceService.likeDevice(deviceId, userId);
 res.redirect(`/devices/${deviceId}/details`);
 } catch (err) {
-  res.redirect(`/devices/${deviceId}/details`, {error: getErrorMessage(err)})
+  console.log(err);
+  res.redirect('/404')
 }
 
 });
