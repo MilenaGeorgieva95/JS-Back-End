@@ -98,3 +98,4 @@
    - [ ] Add values to fields
  - [ ] Modify User model
  - [ ] Modify token data
+ - [ ] Check required fields
