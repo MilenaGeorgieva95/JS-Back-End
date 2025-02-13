@@ -36,7 +36,29 @@ return device.save();
 //   { $push: { preferredList: userId } },
 //   { runValidators: true } /for enum
 // );
+}
 
+const del = async (deviceId, userId)=>{
+//return Device.deleteOne({_id:deviceId, owner: userId});
+
+const device = await getOne(deviceId);
+if(!device){
+  throw new Error('Device not recognised!')
+}
+if(!device.owner.equals(userId)){
+throw new Error('Only owner can delete device!')
+}
+return Device.findByIdAndDelete(deviceId)
+}
+
+const updateDevice = async (userId, deviceId, deviceData)=>{
+  const device = await getOne(deviceId);
+  const isOwner=device.owner.equals(userId);
+  if(!isOwner){
+    return res.render('404',{error: 'You are not owner of this offer!'})
+  }
+
+  return Device.findByIdAndUpdate(deviceId, deviceData, { runValidators: true })
 }
 
 export default {
@@ -44,5 +66,7 @@ export default {
   getLatest3,
   getAll,
   getOne,
-  likeDevice
+  likeDevice,
+  del,
+  updateDevice
 };

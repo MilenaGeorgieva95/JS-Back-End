@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { isUser } from "../middlewares/authMiddleware.js";
+import { isOwner } from "../middlewares/deviceMiddleware.js";
 import deviceService from "../services/deviceService.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
 import getUserType from "../utils/userTypes.js";
@@ -38,10 +39,6 @@ deviceController.get("/:deviceId/details", async (req, res) => {
   res.render("devices/details", { device, userType});
 });
 
-deviceController.post("/:deviceId/details", isUser, (req, res) => {
-  res.render("devices/create");
-});
-
 deviceController.get("/:deviceId/prefer", async (req, res) => {
 const deviceId=req.params['deviceId'];
 const userId=req.user.id;
@@ -49,11 +46,37 @@ try {
 await deviceService.likeDevice(deviceId, userId);
 res.redirect(`/devices/${deviceId}/details`);
 } catch (err) {
-  console.log(err);
-  res.redirect('/404')
+  res.render('/404', {error: getErrorMessage(err)})
 }
+});
+
+deviceController.get('/:deviceId/edit',isUser, isOwner, async (req, res)=>{
+ res.render('devices/edit', {device: req.device})
+});
+
+deviceController.post('/:deviceId/edit',isUser, async (req, res)=>{
+  const deviceData=req.body
+  const deviceId = req.params['deviceId'];
+  const userId=req.user.id;
+  try {
+    await deviceService.updateDevice(userId, deviceId, deviceData);
+    res.redirect(`/devices/${deviceId}/details`);
+  } catch (err) {
+    res.render('devices/edit', {device:deviceData, error:getErrorMessage(err)})
+  }
+  
 
 });
 
+deviceController.get('/:deviceId/delete', isUser, async (req, res)=>{
+  const deviceId=req.params['deviceId'];
+  const userId=req.user.id;
+  try {
+    await deviceService.del(deviceId, userId);
+
+  } catch (err) {
+    res.render('404', {error:getErrorMessage(err)})
+  }
+});
 
 export default deviceController;
