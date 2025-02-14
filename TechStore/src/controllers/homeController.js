@@ -5,6 +5,7 @@ import { isUser } from "../middlewares/authMiddleware.js";
 const homeController = Router();
 
 homeController.get("/", async (req, res) => {
+  res.setError('Home error test')
   const lastestDevices = await deviceService.getLatest3();
   res.render("home", { devices: lastestDevices });
 });

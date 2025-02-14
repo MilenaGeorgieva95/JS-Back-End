@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 import router from "./routes.js";
 import handlebars from 'express-handlebars';
 import cookieParser from "cookie-parser";
+import expressSession from 'express-session';
+
 import { addUserMiddleware } from "./middlewares/authMiddleware.js";
+import { tempData } from "./middlewares/tempDataMiddleware.js";
 
 const app = express();
 
@@ -34,7 +37,17 @@ app.set('views', 'src/views');
 app.use(express.static("src/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//?Config express session
+app.use(expressSession({
+  secret: 'HJTRFU87JH9435KDJFL334KASFD',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false, httpOnly:true }
+}))
+
 app.use(addUserMiddleware);
+app.use(tempData);
 app.use(router);
 
 app.get("*", (req, res) => {

@@ -76,10 +76,10 @@
  - [ ] Set titles from view
  <!-- - [ ] Async jsonwebtoken
  - [ ] Add types for jsonwebtoken lib -->
-<!-- 12. TempData | Optional
+12. TempData | Optional
  - [ ] Install express session `npm i express-session`
  - [ ] Config express session
- - [ ] Add temp data middleware -->
+ - [ ] Add tempData middleware
     
 ## Adapt Skeleton to New Exam
  - [ ] Remove old styles and paste new styles
