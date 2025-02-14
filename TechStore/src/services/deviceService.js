@@ -61,6 +61,15 @@ const updateDevice = async (userId, deviceId, deviceData)=>{
   return Device.findByIdAndUpdate(deviceId, deviceData, { runValidators: true })
 }
 
+const getDevicesByOwner = (userId)=>{
+return Device.find({owner: userId});
+}
+
+const getPrefDevicesByUser = (userId)=>{
+  // return Device.find({}).in('preferredList', userId);
+  return Device.find({preferredList: userId});
+  }
+
 export default {
   create,
   getLatest3,
@@ -68,5 +77,7 @@ export default {
   getOne,
   likeDevice,
   del,
-  updateDevice
+  updateDevice,
+  getDevicesByOwner,
+  getPrefDevicesByUser
 };

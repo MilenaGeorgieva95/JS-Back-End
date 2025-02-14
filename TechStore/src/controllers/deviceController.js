@@ -46,7 +46,7 @@ try {
 await deviceService.likeDevice(deviceId, userId);
 res.redirect(`/devices/${deviceId}/details`);
 } catch (err) {
-  res.render('/404', {error: getErrorMessage(err)})
+  res.render('404', {error: getErrorMessage(err)})
 }
 });
 
@@ -64,8 +64,6 @@ deviceController.post('/:deviceId/edit',isUser, async (req, res)=>{
   } catch (err) {
     res.render('devices/edit', {device:deviceData, error:getErrorMessage(err)})
   }
-  
-
 });
 
 deviceController.get('/:deviceId/delete', isUser, async (req, res)=>{
@@ -73,6 +71,15 @@ deviceController.get('/:deviceId/delete', isUser, async (req, res)=>{
   const userId=req.user.id;
   try {
     await deviceService.del(deviceId, userId);
+
+  } catch (err) {
+    res.render('404', {error:getErrorMessage(err)})
+  }
+});
+
+deviceController.get('/profile', isUser, async (req, res)=>{
+  const userId=req.user.id;
+  try {
 
   } catch (err) {
     res.render('404', {error:getErrorMessage(err)})

@@ -3,17 +3,21 @@ import { Schema, model, Types } from "mongoose";
 const deviceSchema = new Schema(
   {
     brand: { type: String, required: true },
-    model: { type: String, required: false },
-    hardDisk: { type: String, required: false },
-    screenSize: { type: String, required: false },
-    ram: { type: String, required: false },
-    operatingSystem: { type: String, required: false },
-    cpu: { type: String, required: false },
-    gpu: { type: String, required: false },
-    price: { type: Number, required: false },
-    color: { type: String, required: false },
-    weight: { type: String, required: false },
-    image: { type: String, required: false },
+    model: { type: String, required: true },
+    hardDisk: { type: String, required: true },
+    screenSize: { type: String, required: true },
+    ram: { type: String, required: true },
+    operatingSystem: { type: String, required: true },
+    cpu: { type: String, required: true },
+    gpu: { type: String, required: true },
+    price: { type: Number, required: true },
+    color: { type: String, required: true },
+    weight: { type: String, required: true },
+    image: {
+      type: String,
+      required: true,
+      validate: [/^https?:\/\//, "Invalid image url!"],
+    },
 
     preferredList: [
       {
