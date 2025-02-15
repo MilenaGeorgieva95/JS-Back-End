@@ -70,6 +70,17 @@
 3.Modify DB name
 4.Modify user model
 
+11. Bonus
+ - [ ] Dynamic Navigation
+ - [ ] Dynamic Titles
+ - [ ] Set titles from view
+ <!-- - [ ] Async jsonwebtoken
+ - [ ] Add types for jsonwebtoken lib -->
+12. TempData | Optional
+ - [ ] Install express session `npm i express-session`
+ - [ ] Config express session
+ - [ ] Add tempData middleware
+    
 ## Adapt Skeleton to New Exam
  - [ ] Remove old styles and paste new styles
  - [ ] Copy all html files into views folder
@@ -87,3 +98,4 @@
    - [ ] Add values to fields
  - [ ] Modify User model
  - [ ] Modify token data
+ - [ ] Check required fields

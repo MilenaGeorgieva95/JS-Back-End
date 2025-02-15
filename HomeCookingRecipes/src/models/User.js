@@ -4,8 +4,8 @@ import bcrypt from "bcrypt";
 const userSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Name is required!"],
-    validate: [/^[A-Za-z0-9-.]+$/, "Invalid name!"],
+    required: [true, "Username is required!"],
+    validate: [/^[A-Za-z0-9-.]+$/, "Invalid username!"],
   },
   email: {
     type: String,
@@ -21,6 +21,8 @@ const userSchema = new Schema({
     maxLength: [20, "Maximum 20 characters!"],
     validate: [/^[A-Za-z0-9]+$/, "Invalid password!"],
   },
+  // createdDevices: [{ type: Types.ObjectId, ref: "Device" }],
+
 });
 
 const saltRounds = 10;
