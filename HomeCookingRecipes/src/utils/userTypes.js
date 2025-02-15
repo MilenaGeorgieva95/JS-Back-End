@@ -1,8 +1,8 @@
-const getUserType = (device, user) => {
+const getUserType = (recipe, user) => {
   const isUser = !!user;
-  const isOwner = user && user.id === device.owner.toString();
+  const isOwner = user && user.id === recipe.owner.toString();
   const isLiked =
-    user && device.preferredList.includes(user.id);
+    user && recipe.recommendList.includes(user.id);
 
   return {
     isUser,

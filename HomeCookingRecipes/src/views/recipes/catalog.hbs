@@ -1,0 +1,19 @@
+{{setTitle "Recipe Catalog"}}
+
+<h2>Recipe Catalog</h2>
+<section class="recipes">
+  {{#each recipes}}
+    <article class="recipe">
+      <img
+        src="{{image}}"
+        alt="Spaghetti Carbonara"
+      />
+      <h3>{{title}}</h3>
+      <p>{{description}}</p>
+      <a href="/recipes/{{_id}}/details">Read More</a>
+    </article>
+
+  {{else}}
+    <p class="no-post">There are no recipes found yet!</p>
+  {{/each}}
+</section>

@@ -2,26 +2,23 @@ import { Schema, model, Types } from "mongoose";
 import bcrypt from "bcrypt";
 
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: [true, "Username is required!"],
-    validate: [/^[A-Za-z0-9-.]+$/, "Invalid username!"],
+minLength: 2,
+maxLength:20
   },
   email: {
     type: String,
     required: [true, "Email is required!"],
     unique: true,
-    minLength: [5, "Email is too short!"],
-    validate: [/@[A-Za-z0-9]+.[A-Za-z0-9]+$/, "Invalid email address!"],
+    minLength:10
   },
   password: {
     type: String,
     required: [true, "Password is required!"],
-    minLength: [4, "Password is too short!"],
-    maxLength: [20, "Maximum 20 characters!"],
-    validate: [/^[A-Za-z0-9]+$/, "Invalid password!"],
+    minLength: 4
   },
-  // createdDevices: [{ type: Types.ObjectId, ref: "Device" }],
 
 });
 

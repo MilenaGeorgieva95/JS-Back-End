@@ -1,57 +1,52 @@
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>TechStore  - {{#if pageTitle}}{{pageTitle}} {{else}}Laptops and Computers{{/if}}</title>
+    <title>{{#if pageTitle}}{{pageTitle}} - {{/if}}Home Cooking Recipes</title>
 
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
 
-<body>
+  <body>
 
-<header>
-  <div class="container">
-    <h1>TechStore</h1>
+    <header>
 
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/devices">Catalog</a></li>
-        <li><a href="/about">About</a></li>
-        {{#if user}}
-          <!--Users-->
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/devices/create">Create Offer</a></li>
-          <li><a href="/auth/logout">Logout</a></li>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/recipes">Recipes</a></li>
+          <li><a href="/recipes/search">Search</a></li>
+          {{#if user}}
+            <!--Users-->
+            <li><a href="/recipes/create">Add Recipe</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
 
-          <!--Guest-->
-        {{else}}
-          <li><a href="/auth/login">Login</a></li>
-          <li><a href="/auth/register">Register</a></li>
-        {{/if}}
-      </ul>
+            <!--Guest-->
+          {{else}}
+            <li><a href="/auth/login">Login</a></li>
+            <li><a href="/auth/register">Register</a></li>
+          {{/if}}
+        </ul>
 
-      {{!-- {{#if user}}
+        {{!-- {{#if user}}
         <span>{{user.username}}</span>
       {{/if}} --}}
-    </nav>
-  </div>
-</header>
+      </nav>
+    </header>
 
-{{#if error}}
-    <div>
-        <div class="errorContainer">
-            <p>{{error}}</p>
-        </div>
-    </div>
-{{/if}}
+    {{#if error}}
+      <div class="error-container">
+        <p>{{error}}</p>
+      </div>
+    {{/if}}
 
-{{{body}}}
+    {{{body}}}
 
-<div>Footer</div>
-</body>
+    <footer>
+      <p>&copy; 2024 Home Cooking Recipes. All rights reserved.</p>
+    </footer>
+  </body>
 
 </html>

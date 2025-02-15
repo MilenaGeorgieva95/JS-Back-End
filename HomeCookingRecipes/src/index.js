@@ -12,7 +12,7 @@ const app = express();
 
 const url = "mongodb://localhost:27017";
 try {
-  await mongoose.connect(url, { dbName: "tech-store" })
+  await mongoose.connect(url, { dbName: "home-recipes" })
   console.log("DB connected")
 } catch (err) {
   console.log("DB failed: " + err.message);
