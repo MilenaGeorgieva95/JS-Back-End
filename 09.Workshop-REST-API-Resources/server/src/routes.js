@@ -1,10 +1,10 @@
 import { Router } from "express";
-import dataController from "./controllers/dataController.js";
+import furnitureController from "./controllers/furnitureController.js";
 import userController from "./controllers/userController.js";
 
 const routes = Router();
 
-routes.use('/data', dataController);
+routes.use('/data/catalog', furnitureController);
 routes.use('/users', userController);
 
 export default routes;
