@@ -3,7 +3,11 @@ import { Schema, Types, model } from "mongoose";
 const furnitureSchema = new Schema({
   make: String,
   model: String,
-  year: Number,
+  year: {
+    type: Number,
+    min: 1950,
+    max: 2025,
+  },
   description: String,
   price: Number,
   img: String,

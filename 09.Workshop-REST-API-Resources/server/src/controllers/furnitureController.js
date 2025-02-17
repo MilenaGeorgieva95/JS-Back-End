@@ -1,5 +1,6 @@
 import { Router } from "express";
 import furnitureService from "../services/furnitureService.js";
+import { getErrorMessage } from "../utils/errorUtil.js";
 
 const furnitureController = Router();
 
@@ -11,13 +12,17 @@ furnitureController.get("/", async (req, res) => {
 
 furnitureController.post("/", async (req, res) => {
   const furnitureData = req.body;
-  console.log(req.header("x-authorization"));
 
   const userId = req.user._id;
   furnitureData._ownerId = userId;
-
+try {
   const newItem = await furnitureService.create(furnitureData);
   res.json(newItem);
+} catch (err) {
+  const error = getErrorMessage(err)
+  res.status(400).json({message:error})
+}
+
 });
 
 furnitureController.get("/:furnitureId", async (req, res) => {
