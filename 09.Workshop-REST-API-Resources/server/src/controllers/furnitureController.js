@@ -33,18 +33,28 @@ furnitureController.get("/:furnitureId", async (req, res) => {
 
 furnitureController.delete("/:furnitureId", async (req, res) => {
   const furnitureId = req.params.furnitureId;
+  try{
   await furnitureService.del(furnitureId);
   res.status(204).end();
+} catch (err) {
+  const error = getErrorMessage(err)
+  res.status(400).json({message:error})
+}
 });
 
 furnitureController.put("/:furnitureId", async (req, res) => {
   const furnitureId = req.params.furnitureId;
   const furnitureData = req.body;
+  try{
   const newFurniture = await furnitureService.update(
     furnitureId,
     furnitureData
   );
   res.json(newFurniture);
+} catch (err) {
+  const error = getErrorMessage(err)
+  res.status(400).json({message:error})
+}
 });
 
 export default furnitureController;
