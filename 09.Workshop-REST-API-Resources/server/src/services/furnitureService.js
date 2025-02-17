@@ -7,6 +7,9 @@ const furnitureService = {
   create(furnitureData) {
     return Furniture.create(furnitureData);
   },
+  getOne(furnitureId){
+    return Furniture.findById(furnitureId)
+  }
 };
 
 export default furnitureService;

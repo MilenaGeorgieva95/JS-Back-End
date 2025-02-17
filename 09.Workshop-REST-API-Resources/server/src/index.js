@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from "mongoose";
 
 import routes from "./routes.js";
+import { authMiddleware } from "./middlewares/authMiddleware.js";
 
 try {
   await mongoose.connect('mongodb://localhost:27017', {dbName: 'furniture'})
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
+app.use(authMiddleware);
 app.use(routes);
 
 app.get("*", (req, res) => {
